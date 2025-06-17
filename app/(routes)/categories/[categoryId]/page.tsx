@@ -13,9 +13,9 @@ import { MobileFilters } from "@/app/(routes)/categories/[categoryId]/components
 export const revalidate = 0;
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     categoryId: string;
-  };
+  }>;
   searchParams: {
     colourId?: string;
     sizeId?: string;
@@ -25,13 +25,12 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   params,
   searchParams,
 }) => {
+  const { categoryId } = await params;
   const products = await getProducts({
-    categoryId: params.categoryId,
+    categoryId: categoryId,
     colourId: searchParams.colourId,
     sizeId: searchParams.sizeId,
   });
-
-  const { categoryId } = await params;
 
   const sizes = await getSizes();
   const colours = await getColours();
