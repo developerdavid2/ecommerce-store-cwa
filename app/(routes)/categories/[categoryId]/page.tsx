@@ -16,20 +16,23 @@ interface CategoryPageProps {
   params: Promise<{
     categoryId: string;
   }>;
-  searchParams: {
+  searchParams: Promise<{
     colourId?: string;
     sizeId?: string;
-  };
+  }>;
 }
+
 const CategoryPage: React.FC<CategoryPageProps> = async ({
   params,
   searchParams,
 }) => {
   const { categoryId } = await params;
+  const resolvedSearchParams = await searchParams;
+
   const products = await getProducts({
     categoryId: categoryId,
-    colourId: searchParams.colourId,
-    sizeId: searchParams.sizeId,
+    colourId: resolvedSearchParams.colourId,
+    sizeId: resolvedSearchParams.sizeId,
   });
 
   const sizes = await getSizes();
@@ -68,4 +71,5 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     </div>
   );
 };
+
 export default CategoryPage;
