@@ -5,6 +5,7 @@ import Billboard from "@/components/billboard";
 import ProductList from "@/components/product-list";
 import getProducts from "@/actions/get-products";
 
+export const dynamic = "force-dynamic";
 const HomePage = async () => {
   const billboard = await getBillboard("78089423-5567-4ec3-9a83-ab3b2a357be3");
   const products = await getProducts({ isFeatured: true });
@@ -19,6 +20,8 @@ const HomePage = async () => {
       </Container>
     );
   }
+
+  console.log(products);
 
   return (
     <Container>
