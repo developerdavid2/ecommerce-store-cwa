@@ -1,3 +1,4 @@
+import axios from "axios";
 import qs from "query-string";
 import { Product } from "@/types";
 
@@ -21,16 +22,8 @@ const getProducts = async (query: Query): Promise<Product[]> => {
         isFeatured: query.isFeatured,
       },
     });
-    const res = await fetch(url);
 
-    // Check if the response is OK
-    if (!res.ok) {
-      throw new Error(
-        `Failed to fetch categories: ${res.status} ${res.statusText}`,
-      );
-    }
-
-    const data = await res.json();
+    const { data } = await axios.get<Product[]>(url);
 
     // Ensure the data is an array
     if (!Array.isArray(data)) {

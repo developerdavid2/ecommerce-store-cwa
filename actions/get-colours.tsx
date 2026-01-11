@@ -1,20 +1,12 @@
+import axios from "axios";
 import { Colour } from "@/types";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/colours`;
 
 const getColours = async (): Promise<Colour[]> => {
   try {
-    const res = await fetch(URL);
+    const { data } = await axios.get<Colour[]>(URL);
 
-    // Check if the response is OK
-    if (!res.ok) {
-      throw new Error(
-        `Failed to fetch colours: ${res.status} ${res.statusText}`,
-      );
-    }
-
-    // Parse the response as JSON
-    const data = await res.json();
     console.log(data);
 
     // Ensure the data is an array

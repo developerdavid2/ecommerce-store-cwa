@@ -1,20 +1,12 @@
+import axios from "axios";
 import { Category } from "@/types";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
 
 const getCategories = async (): Promise<Category[]> => {
   try {
-    const res = await fetch(URL);
+    const { data } = await axios.get<Category[]>(URL);
 
-    // Check if the response is OK
-    if (!res.ok) {
-      throw new Error(
-        `Failed to fetch categories: ${res.status} ${res.statusText}`,
-      );
-    }
-
-    // Parse the response as JSON
-    const data = await res.json();
     console.log(data);
 
     // Ensure the data is an array

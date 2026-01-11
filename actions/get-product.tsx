@@ -1,22 +1,14 @@
+import axios from "axios";
 import { Product } from "@/types";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
 
 const getProduct = async (id: string): Promise<Product | undefined> => {
   try {
-    const res = await fetch(`${URL}/${id}`);
-
-    // Check if the response is OK
-    if (!res.ok) {
-      throw new Error(
-        `Failed to fetch product: ${res.status} ${res.statusText}`,
-      );
-    }
-
-    // Parse the response as JSON
-    return await res.json();
+    const { data } = await axios.get<Product>(`${URL}/${id}`);
+    return data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching product:", error);
     return undefined;
   }
 };
