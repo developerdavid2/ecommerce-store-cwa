@@ -10,7 +10,7 @@ import NoResults from "@/components/ui/no-results";
 import ProductCard from "@/components/ui/product-card";
 import { MobileFilters } from "@/app/(routes)/categories/[categoryId]/components/mobile-filters";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -39,6 +39,8 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   const colours = await getColours();
   const category = await getCategory(categoryId);
 
+  console.log("Colours", colours);
+  console.log("Products", products);
   return (
     <div className="">
       <Container>
