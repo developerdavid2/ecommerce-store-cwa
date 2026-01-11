@@ -21,8 +21,6 @@ const HomePage = async () => {
     );
   }
 
-  console.log(products);
-
   return (
     <Container>
       <div className="space-y-10 pb-10">
